@@ -1,0 +1,27 @@
+{
+  "name": "promise",
+  "version": "1.0.0",
+  "description": "promise-api",
+  "scripts": {
+    "dev": "parcel src/*.html --no-cache",
+    "build": "parcel build src/*.html --no-cache"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Allovallo/promise.git"
+  },
+  "author": "Allovallo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Allovallo/promise/issues"
+  },
+  "homepage": "https://github.com/Allovallo/promise#readme",
+  "devDependencies": {
+    "parcel": "^2.10.2",
+    "parcel-plugin-nuke-dist": "^1.0.1"
+  },
+  "dependencies": {
+    "bootstrap.native": "^5.0.9",
+    "lodash.throttle": "^4.1.1"
+  }
+}
