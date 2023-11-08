@@ -10,6 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Allovallo/promise.git"
   },
+  "keywords": [],
   "author": "Allovallo",
   "license": "ISC",
   "bugs": {
