@@ -15,15 +15,14 @@ const refs = {
   tableBody: document.querySelector('.js-results-table > body'),
 };
 
-refs.startBtn.addEventListener('click', () =>
-  console.log(
-    '%c Заїзд розпочався, ставки не приймаються!',
-    'color: brown; font-size: 14px',
-  ),
-);
+refs.startBtn.addEventListener('click', () => {
+  const promises = horses.map(run);
+});
 
-const promises = horses.map(run);
-console.log(promises);
+console.log(
+  '%c Заїзд розпочався, ставки не приймаються!',
+  'color: brown; font-size: 14px',
+);
 
 Promise.race(promises).then(({ horse, time }) =>
   console.log(
