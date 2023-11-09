@@ -8,35 +8,57 @@ const horses = [
   'Seabiscuit',
 ];
 
+let raceCounter = 0;
+
 const refs = {
   startBtn: document.querySelector('.js-start-race'),
   winnerField: document.querySelector('.js-winner'),
   progressField: document.querySelector('.js-progress'),
-  tableBody: document.querySelector('.js-results-table > body'),
+  tableBody: document.querySelector('.js-results-table > tbody'),
 };
 
-refs.startBtn.addEventListener('click', () => {
+refs.startBtn.addEventListener('click', onStart);
+
+function onStart() {
+  raceCounter += 1;
   const promises = horses.map(run);
-});
 
-console.log(
-  '%c Заїзд розпочався, ставки не приймаються!',
-  'color: brown; font-size: 14px',
-);
+  undateWinnerField('');
+  updateProgressField('Заїзд розпочався, ставки не приймаються!');
+  determineWinner(promises);
+  waitForAll(promises);
+}
 
-Promise.race(promises).then(({ horse, time }) =>
-  console.log(
-    `%c Переміг ${horse}, який фінішував за ${time} часу!!!`,
-    'color: green; font-size: 14px;',
-  ),
-);
+function determineWinner(horsesP) {
+  Promise.race(horsesP).then(({ horse, time }) => {
+    undateWinnerField(`Переміг ${horse}, який фінішував за ${time} часу!!!`);
+    updateResultsTable({ horse, time, raceCounter });
+  });
+}
 
-Promise.all(promises).then(() => {
-  console.log(
-    '%c Заїзд закінчено, ставки приймаються!',
-    'color: blue; font-size: 14px',
-  );
-});
+function waitForAll(horsesP) {
+  Promise.all(horsesP).then(() => {
+    updateProgressField('Заїзд закінчено, ставки приймаються!');
+  });
+}
+
+function undateWinnerField(message) {
+  refs.winnerField.textContent = message;
+}
+
+function updateProgressField(message) {
+  refs.progressField.textContent = message;
+}
+
+function updateResultsTable({ horse, time, raceCounter }) {
+  const tr = `<tr><td>${raceCounter}</td><td>${horse}</td><td>${time}</td></tr>`;
+  refs.tableBody.insertAdjacentHTML('beforeend', tr);
+}
+
+// console.log(
+//   '%c Заїзд розпочався, ставки не приймаються!',
+//   'color: brown; font-size: 14px',
+// );
 
 function run(horse) {
   return new Promise(resolve => {
