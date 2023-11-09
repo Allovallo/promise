@@ -8,9 +8,18 @@ const horses = [
   'Seabiscuit',
 ];
 
-console.log(
-  '%c Заїзд розпочався, ставки не приймаються!',
-  'color: brown; font-size: 14px',
+const refs = {
+  startBtn: document.querySelector('.js-start-race'),
+  winnerField: document.querySelector('.js-winner'),
+  progressField: document.querySelector('.js-progress'),
+  tableBody: document.querySelector('.js-results-table > body'),
+};
+
+refs.startBtn.addEventListener('click', () =>
+  console.log(
+    '%c Заїзд розпочався, ставки не приймаються!',
+    'color: brown; font-size: 14px',
+  ),
 );
 
 const promises = horses.map(run);
@@ -22,6 +31,13 @@ Promise.race(promises).then(({ horse, time }) =>
     'color: green; font-size: 14px;',
   ),
 );
+
+Promise.all(promises).then(() => {
+  console.log(
+    '%c Заїзд закінчено, ставки приймаються!',
+    'color: blue; font-size: 14px',
+  );
+});
 
 function run(horse) {
   return new Promise(resolve => {
