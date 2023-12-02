@@ -24,7 +24,7 @@ function onStart() {
   const promises = horses.map(run);
 
   updateWinnerField('');
-  updateProgressField('Заїзд розпочався, ставки не приймаються!');
+  updateProgressField('Заїзд розпочався, ставки не приймаються!!!');
   determineWinner(promises);
   waitForAll(promises);
 }
@@ -36,9 +36,9 @@ function determineWinner(horsesP) {
   });
 }
 
-function waitForAll(horsesP) {
-  Promise.all(horsesP).then(() => {
-    updateProgressField('Заїзд закінчився, ставки приймаються!');
+function waitForAll(promises) {
+  Promise.all(promises).then(() => {
+    updateProgressField('Заїзд закінчено, ставки приймаються!!!');
   });
 }
 
@@ -51,11 +51,9 @@ function updateProgressField(message) {
 }
 
 function updateResultsTable({ horse, time, raceCounter }) {
-  const tr = `<tr><td>${raceCounter}</td><td>${horse}</td><td>${time}</td><tr/>`;
+  const tr = `<tr><td>${raceCounter}</td><td>${horse}</td><td>${time}</td></tr>`;
   refs.tableBody.insertAdjacentHTML('beforeend', tr);
 }
-
-const promises = horses.map(run);
 
 function run(horse) {
   return new Promise(resolve => {
